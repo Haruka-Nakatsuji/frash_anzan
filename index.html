@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="jp">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>フラッシュ暗算</title>
-	<link rel="stylesheet" href="style.css"></.ink>
+	<link rel="stylesheet" href="style.css">
 </head>
-<body>
-<h1>フラッシュ暗算</h1>
-<p>一回で当てられなかったらずっと不正解！<br>
-もういちどスタートを押してね！</p>
-<div class="number" id="number">0</div>
-<p class="speed">早さ</p>
-<select name="dex" id="dex">
-	<option value="2000">1(遅い)</option>
-	<option value="1500">2</option>
-	<option value="1000" selected>3</option>
-	<option value="500">4</option>
-	<option value="300">5(早い)</option>
-</select><br>
-<button id="start">初級☆スタート</button>
-<button id="start_m">上級☆スタート</button><br>
-<input type="number" min="0" id="input">
-<button id="answer">回答する</button>
-<p class="a"></p>
-<p class="mumble"></p>
-<div class="flex">
-	<img src="images/IMG_7082.JPG">
-	<img src="images/IMG_7083.JPG">
-	<img src="images/IMG_7084.JPG">
-</div>
 
-<script src="main.js"></script>
+<body>
+	<h1>フラッシュ暗算</h1>
+	<div class="number" id="number">0</div>
+	<p class="speed">早さ</p>
+	<select name="dex" id="dex">
+		<option value="2000">1(遅い)</option>
+		<option value="1500">2</option>
+		<option value="1000" selected>3</option>
+		<option value="500">4</option>
+		<option value="300">5(早い)</option>
+	</select><br>
+	<button id="start">初級☆スタート</button>
+	<button id="start_m">上級☆スタート</button><br>
+	<input type="number" min="0" id="input">
+	<button id="answer" class="disabled">回答する</button>
+	<p class="message"></p>
+	<div class="flex">
+		<img src="images/IMG_7082.JPG">
+		<img src="images/IMG_7083.JPG">
+		<img src="images/IMG_7084.JPG">
+	</div>
+	<script src="main.js"></script>
+	<!-- <script src="main_legacy.js"></script> -->
 </body>
 </html>

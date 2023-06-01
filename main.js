@@ -1,74 +1,74 @@
 'use strict'
 
 const startBtn = document.getElementById('start');
-const startBtn_m = document.getElementById('start_m');
+const hardModeStartBtn = document.getElementById('start_m');
 const answerBtn = document.getElementById('answer');
-const number = document.getElementById('number');
-const answer = document.getElementById('input');
-const dex = document.getElementById('dex');
-const ca = document.querySelector('.a');
+const numberDisplayArea = document.getElementById('number');
+const answerInputArea = document.getElementById('input');
+const messageArea = document.querySelector(".message");
 
-let frashNumber = 0;
+let resultFrashNumber = 0
+let isAbleAnswer = false;
 
-{
-	startBtn.addEventListener('click', () => {
-		startBtn.disabled = true;
-		startBtn_m.disabled = true;
-		document.querySelector('.mumble').textContent = '';
-		let count = 0;
-		let dexVal = Number(dex.value);
-		ca.textContent = '';
-		ca.classList.remove('correct');
-		let changeNum = function() {
-			let n = Math.floor(Math.random() * 89) + 10;
-			number.textContent = n;
-			frashNumber += n;
-			count += 1;
-			console.log(frashNumber);
-			let timeoutId = setTimeout(changeNum, dexVal);
+startBtn.addEventListener("click", () => {
+	startFrash(99, 10);
+	toggleDisable();
+});
 
-			if(count === 5) {
-				clearTimeout(timeoutId);
-			}
+hardModeStartBtn.addEventListener("click", () => {
+	startFrash(999, 100);
+	toggleDisable();
+});
+
+answerBtn.addEventListener("click", ()=> {
+	if (isAbleAnswer === false) {
+		return;
+	}
+
+	if (isValidAnswer()) {
+		messageArea.textContent = "正解！！！";
+	} else {
+		messageArea.textContent = "不正解w";
+	}
+
+	isAbleAnswer = false;
+	numberDisplayArea.textContent = "0";
+	resultFrashNumber = 0;
+	toggleDisable();
+});
+
+function startFrash(max, min) {
+	let repeatedCount = 0;
+	const delay = Number(document.getElementById("dex").value);
+
+	const repeat = setInterval(() => {
+		addReasultFrashNumber(max, min);
+		repeatedCount++;
+
+		if (repeatedCount === 5) {
+			clearInterval(repeat);
 		}
-		changeNum();
-	});
+	}, delay);
 
-	startBtn_m.addEventListener('click', () => {
-		startBtn.disabled = true;
-		startBtn_m.disabled = true;
-		document.querySelector('.mumble').textContent = '';
-		let count = 0;
-		let dexVal = Number(dex.value);
-		ca.textContent = '';
-		ca.classList.remove('correct');
-		let changeNum = function() {
-			let n = Math.floor(Math.random() * 899) + 100;
-			number.textContent = n;
-			frashNumber += n;
-			count += 1;
-			console.log(frashNumber);
-			let timeoutId = setTimeout(changeNum, dexVal);
+	isAbleAnswer = true;
+}
 
-			if(count === 10) {
-				clearTimeout(timeoutId);
-			}
-		}
-		changeNum();
-	});
+function addReasultFrashNumber(max, min) {
+	let frashNumber = Math.floor(Math.random() * (max - min)) + min;
+	numberDisplayArea.textContent = frashNumber;
+	resultFrashNumber += frashNumber;
+}
 
-	answerBtn.addEventListener('click', () => {
-		if (Number(answer.value) === frashNumber) {
-			ca.textContent = '正解でございます！！！！！！！！';
-			ca.classList.add('correct');
-		} else {
-			ca.textContent = '不正解';
-			ca.classList.remove('correct');
-			document.querySelector('.mumble').textContent = `ちなみに正解は${frashNumber}でした。`
-		}
-		frashNumber = 0;
-		number.textContent = '0';
-		startBtn.disabled = false;
-		startBtn_m.disabled = false;
-	});
+function isValidAnswer() {
+	let userInputAnswer = Number(answerInputArea.value);
+
+	if (resultFrashNumber === userInputAnswer) {
+		return true;
+	}
+
+	return false;
+}
+
+function toggleDisable() {
+	answerBtn.classList.toggle("disabled");
 }
